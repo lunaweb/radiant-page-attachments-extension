@@ -115,6 +115,20 @@ module PageAttachmentTags
     end
   end
 
+  [:title, :description].each do |key|
+    desc %{
+      Check the '#{key}' attribute of the attachment.
+      
+    *Usage*:
+
+    <pre><code><r:unless_#{key}>...</r:unless_#{key}></code></pre>
+    }
+    tag "attachment:unless_#{key}" do |tag|
+      attachment = tag.locals.attachment
+      tag.expand if attachment.attributes["#{key}"].blank?
+    end
+  end
+
   desc %{
     Renders the date the attachment was uploaded using the specified 'format' (Ruby's strftime syntax).
     The 'name' attribute is required on this tag or the parent tag.
