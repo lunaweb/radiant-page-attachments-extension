@@ -231,7 +231,7 @@ module PageAttachmentTags
     <pre><code><r:if_attachments [min_count="n"] [extensions="doc|pdf"]>...</r:if_attachments></code></pre>
   }
   tag "if_attachments" do |tag|
-    count = tag.attr['min_count'] && tag.attr['min_count'].to_i || 0
+    count = tag.attr['min_count'] && tag.attr['min_count'].to_i || 1
     attachments = tag.locals.page.attachments.count(:conditions => attachments_find_options(tag)[:conditions])
     tag.expand if attachments >= count
   end
