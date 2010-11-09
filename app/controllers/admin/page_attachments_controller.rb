@@ -3,6 +3,7 @@ class Admin::PageAttachmentsController < ApplicationController
   def index
     @attachments = PageAttachment.paginate :per_page => 25, :page => params[:page], :conditions => {:parent_id => nil}, :order => 'title, filename'
   end
+  
   def grid
     @attachments = PageAttachment.paginate :per_page => 25, :page => params[:page], :conditions => {:parent_id => nil}, :order => 'title, filename'
   end
@@ -10,6 +11,7 @@ class Admin::PageAttachmentsController < ApplicationController
   def edit
     @page_attachment = PageAttachment.find(params[:id])
   end
+  
   def update
     @page_attachment = PageAttachment.find(params[:id])
     if @page_attachment.update_attributes(params[:page_attachment])
