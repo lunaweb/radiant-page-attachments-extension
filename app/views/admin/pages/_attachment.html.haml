@@ -9,4 +9,5 @@
     = link_to image_tag(attachment.public_filename("icon")),  attachment.public_filename, :class => 'thumbnail'
   - unless attachment.title.blank?
     %p= h attachment.title
-  = link_to attachment.filename, attachment.public_filename
+  = link_to attachment.filename, edit_admin_page_attachment_path(attachment)
+  = link_to '(view)', attachment.public_filename, :target => "_blank"
