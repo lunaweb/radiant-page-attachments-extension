@@ -8,5 +8,5 @@
   - unless attachment.thumbnails.empty?
     = link_to image_tag(attachment.public_filename("icon")),  attachment.public_filename, :class => 'thumbnail'
   - unless attachment.title.blank?
-    %p= h attachment.short_title
+    %p= h attachment.title
   = link_to attachment.filename, attachment.public_filename
