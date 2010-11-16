@@ -10,10 +10,18 @@ Event.addBehavior({
     });
   },
   
+  'form:submit': function(event) {
+	  $$('.attachment_upload').each(function(upload, index){
+		  if(!Form.Element.getValue( $(upload).select('input[type=file]')[0] )){
+			  $(upload).remove();
+		  }
+	  });
+  },
+  
   '#attachments:click': function(event) {
     var target = $(event.target);
     if (target.match('img[alt=add]')) {
-      var upload = '<div class="attachment_upload"><p class="title">Upload file</p><table><tr><th><label for="title_input">Title:</label></th><td><input id="title_input" size="60" name="page[attachments_attributes][][title]"></td></tr><tr><th><label for="description_input">Description:</label></th><td><input id="description_input" type="text" size="60"  name="page[attachments_attributes][][description]"></td></tr><tr><th><label for="file_input">File:</label></th><td><input id="file_input" type="file" size="60" name="page[attachments_attributes][][uploaded_data]" /><img src="/images/admin/minus.png" alt="cancel" /></td></tr></table></div>';
+      var upload = '<div class="attachment_upload"><p class="title">Upload file</p><table><tr><th><label for="title_input">Title:</label></th><td><input id="title_input" size="60" name="page[attachments_attributes][][title]"></td></tr><tr><th><label for="description_input">Description:</label></th><td><textarea id="description_input" name="page[attachments_attributes][][description]" rows="10" cols="49"></textarea></td></tr><tr><th><label for="file_input">File:</label></th><td><input id="file_input" type="file" size="60" name="page[attachments_attributes][][uploaded_data]" /><img src="/images/admin/minus.png" alt="cancel" /></td></tr></table></div>';
       $('attachment_index_field').value = parseInt($('attachment_index_field').value) + 1;
       $('attachments').insert(upload.gsub(/\[\]/, '[' + $('attachment_index_field').value + ']'));
     } else if (target.match('img[alt=cancel]')) {
