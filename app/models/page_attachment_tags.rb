@@ -280,7 +280,17 @@ module PageAttachmentTags
       else
         nil
       end
-
+      
+      if attr[:title]
+        conditions ||= []
+        if conditions[0]
+          conditions[0] = "("+conditions[0]+") AND page_attachments.title LIKE ?"
+        else
+          conditions.push("page_attachments.title LIKE ?")
+        end
+        conditions.push(attr[:title])
+      end
+      
       by = attr[:by] || "position"
       order = attr[:order] || "asc"
 
