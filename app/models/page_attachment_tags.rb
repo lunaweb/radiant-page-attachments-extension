@@ -37,7 +37,7 @@ module PageAttachmentTags
   tag "attachment:url" do |tag|
     raise TagError, "'name' attribute required" unless name = tag.attr['name'] or tag.locals.attachment
     page = tag.locals.page
-    size = tag.attr['size'] || nil
+    size = tag.attr['size'] || :default
     attachment = tag.locals.attachment || page.attachment(name)
     attachment.public_filename(size)
   end
@@ -154,7 +154,7 @@ module PageAttachmentTags
     raise TagError, "'name' attribute required" unless name = tag.attr.delete('name') or tag.locals.attachment
     page = tag.locals.page
     attachment = tag.locals.attachment || page.attachment(name)
-    size = tag.attr['size'] || nil
+    size = tag.attr['size'] || :default
     raise TagError, "attachment is not an image." unless attachment.content_type.strip =~ /^image\//
     filename = attachment.public_filename(size) rescue ""
     attributes = tag.attr.inject([]){ |a,(k,v)| a << %{#{k}="#{v}"} }.join(" ").strip
